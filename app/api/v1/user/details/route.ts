@@ -1,15 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export function GET(){
-    return NextResponse.json({
-        name: "John Doe",
-        email: "abc123@gmail.com"
-    })
-}
+export async function POST(req: NextRequest) {
+    // req.body?
 
-export function POST(){
+    const data = await req.json();
+
+    console.log(data);
+
     return NextResponse.json({
-        name: "John Doe",
-        email: "abc123@gmail.com"
+        message: "You have been signed up"
     })
 }
