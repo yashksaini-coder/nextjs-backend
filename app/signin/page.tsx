@@ -9,12 +9,12 @@ export default function Signin() {
         <input
           type="text"
           placeholder="Username"
-          className="mb-4 p-2 border rounded w-full"
+          className="mb-4 p-2 border rounded w-full text-black"
         />
         <input
           type="password"
           placeholder="Password"
-          className="mb-4 p-2 border rounded w-full"
+          className="mb-4 p-2 border rounded w-full text-black"
         />
         <button
           onClick={() => {

@@ -2,12 +2,14 @@
 
 import axios from "axios"
 import { useState } from "react"
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Signup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     return <div className="w-screen h-screen flex justify-center items-center">
+        <ToastContainer position="top-center" />
         <div className="border p-6 rounded-lg shadow-lg">
             <input 
                 type="text" 
@@ -23,13 +25,16 @@ export default function Signup() {
             />
             <button 
                 className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-700"
-                onClick={() => {
-                    console.log(username)
-                    console.log(password)
-                    axios.post("http://localhost:3000/api/v1/signup", {
-                        username,
-                        password
-                    })
+                onClick={async () => {
+                    try {
+                        const response = await axios.post("http://localhost:3000/api/v1/signup", {
+                            username,
+                            password
+                        });
+                        toast.success("Signed up successfully!");
+                    } catch (error: any) {
+                        toast.error(error.response?.data?.message || "Something went wrong");
+                    }
                 }}
             >
                 Sign up
