@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function Signin() {
   const router = useRouter();
@@ -19,8 +20,7 @@ export default function Signin() {
       });
       router.push('/todos');
     } catch (error) {
-      console.log(error);
-      alert('Sign in failed');
+      toast.error('Signin failed');
     }
   };
 

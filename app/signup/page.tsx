@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function Signup() {
       });
       router.push('/signin');
     } catch (error) {
-      alert('Signup failed');
+      toast.error('Signup failed');
     }
   };
 

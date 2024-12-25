@@ -14,14 +14,20 @@ export async function POST(req: NextRequest) {
 
         const user = await prisma.user.findUnique({
             where: { 
-                username: body.username,
-                password: body.password 
+                username: body.username
             },
         });
 
         if (!user) {
             return NextResponse.json(
-                { message: "Invalid username or password" },
+                { message: "User not found" },
+                { status: 404 }
+            );
+        }
+
+        if (user.password !== body.password) {
+            return NextResponse.json(
+                { message: "Invalid password" },
                 { status: 401 }
             );
         }
