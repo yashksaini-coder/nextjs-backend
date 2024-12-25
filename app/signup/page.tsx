@@ -1,44 +1,57 @@
 "use client";
 
-import axios from "axios"
-import { useState } from "react"
-import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Signup() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const router = useRouter();
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const username = (form.elements.namedItem('username') as HTMLInputElement).value;
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value;
 
-    return <div className="w-screen h-screen flex justify-center items-center">
-        <ToastContainer position="top-center" />
-        <div className="border p-6 rounded-lg shadow-lg">
-            <input 
-                type="text" 
-                placeholder="Username" 
-                className="mb-4 p-2 border rounded w-full text-black"
-                onChange={e => setUsername(e.target.value)}
-            />
-            <input 
-                type="password" 
-                placeholder="Password" 
-                className="mb-4 p-2 border rounded w-full text-black"
-                onChange={e => setPassword(e.target.value)}
-            />
-            <button 
-                className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-700"
-                onClick={async () => {
-                    try {
-                        const response = await axios.post("http://localhost:3000/api/v1/signup", {
-                            username,
-                            password
-                        });
-                        toast.success("Signed up successfully!");
-                    } catch (error: any) {
-                        toast.error(error.response?.data?.message || "Something went wrong");
-                    }
-                }}
-            >
-                Sign up
-            </button>
+    try {
+      await axios.post("http://localhost:3000/api/v1/signup", {
+        username,
+        password
+      });
+      router.push('/signin');
+    } catch (error) {
+      alert('Signup failed');
+    }
+  };
+
+  return (
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div className="border p-6 rounded-lg shadow-lg bg-white">
+        <form onSubmit={handleSignup}>
+          <input
+            name="username"
+            type="text"
+            placeholder="Username"
+            className="mb-4 p-2 border rounded w-full text-black"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="mb-4 p-2 border rounded w-full text-black"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-700"
+          >
+            Sign up
+          </button>
+        </form>
+        <div className="mt-4 text-center">
+          <Link href="/signin" className="text-blue-500 hover:text-blue-700">
+            Already have an account? Sign in
+          </Link>
         </div>
+      </div>
     </div>
+  );
 }
