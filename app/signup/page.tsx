@@ -12,13 +12,13 @@ export default function Signup() {
             <input 
                 type="text" 
                 placeholder="Username" 
-                className="mb-4 p-2 border rounded w-full"
+                className="mb-4 p-2 border rounded w-full text-black"
                 onChange={e => setUsername(e.target.value)}
             />
             <input 
                 type="password" 
                 placeholder="Password" 
-                className="mb-4 p-2 border rounded w-full"
+                className="mb-4 p-2 border rounded w-full text-black"
                 onChange={e => setPassword(e.target.value)}
             />
             <button 
